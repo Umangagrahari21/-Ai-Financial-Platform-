@@ -37,7 +37,7 @@ const HeroSection = () => {
         </p>
         <div className="flex justify-center space-x-4">
           <Link href="/dashboard">
-            <Button size="lg" className="px-8">
+            <Button size="lg" className="px-8" >
               Get Started
             </Button>
           </Link>
@@ -45,7 +45,7 @@ const HeroSection = () => {
         <div className="hero-image-wrapper mt-5 md:mt-0">
           <div ref={imageRef} className="hero-image">
             <Image
-              src="/heroimg.webp"
+              src="/20946021.jpg"
               width={1280}
               height={720}
               alt="Dashboard Preview"

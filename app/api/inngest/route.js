@@ -1,4 +1,5 @@
 import { serve } from "inngest/next";
+
 import { inngest } from "@/lib/inngest/client";
 import {
   checkBudgetAlerts,
@@ -14,6 +15,5 @@ export const { GET, POST, PUT } = serve({
     triggerRecurringTransactions,
     generateMonthlyReports,
     checkBudgetAlerts,
-    // helloWorld,
   ],
 });

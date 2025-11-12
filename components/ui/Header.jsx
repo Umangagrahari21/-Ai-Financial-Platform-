@@ -29,10 +29,10 @@ const Header = async () => {
               Features
             </a>
             <a
-              href="#testimonials"
+              href="#How-It-works"
               className="text-gray-600 hover:text-blue-600"
             >
-              Testimonials
+              How It works
             </a>
           </SignedOut>
         </div>
@@ -58,7 +58,7 @@ const Header = async () => {
           </SignedIn>
           <SignedOut>
             <SignInButton forceRedirectUrl="/dashboard">
-              <Button variant="outline">Login</Button>
+              <Button id="login" variant="outline">Login</Button>
             </SignInButton>
           </SignedOut>
           <SignedIn>
