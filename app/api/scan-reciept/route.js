@@ -1,78 +1,52 @@
-// import { NextResponse } from "next/server";
-// import { scanReceipt } from "@/actions/transaction";
-
-// export const runtime = "nodejs"; // important for Buffer
-
-// export async function POST(req) {
-//   try {
-//     const formData = await req.formData();
-//     const file = formData.get("receipt");
-
-//     if (!file) {
-//       return NextResponse.json(
-//         { success: false, message: "No file received" },
-//         { status: 400 }
-//       );
-//     }
-
-//     const result = await scanReceipt(file);
-
-//     return NextResponse.json({ success: true, ...result });
-//   } catch (err) {
-//     console.error("❌ Error in /api/scan-receipt:", err);
-//     return NextResponse.json(
-//       { success: false, message: err.message || "Failed to scan receipt" },
-//       { status: 500 }
-//     );
-//   }
-// }
-
 // import { GoogleGenerativeAI } from "@google/generative-ai";
+// import { NextResponse } from "next/server";
+
+// const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // export async function POST(req) {
 //   try {
 //     const formData = await req.formData();
-//     const file = formData.get("receipt");
+//     const file = formData.get("file");
 
 //     if (!file) {
-//       return Response.json({ error: "No file provided" }, { status: 400 });
+//       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
 //     }
-
-//     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-//     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 //     const arrayBuffer = await file.arrayBuffer();
 //     const base64String = Buffer.from(arrayBuffer).toString("base64");
 
+//     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
 //     const prompt = `
-//       Analyze this receipt image and extract:
-//       - Total amount (number)
-//       - Date (ISO)
-//       - Merchant name
-//       - Description (summary)
-//       - Suggested category (groceries, food, travel, etc.)
-//       Respond only with JSON in this format:
+//       Analyze this receipt image and extract the following information in JSON format:
 //       {
 //         "amount": number,
-//         "date": "YYYY-MM-DD",
+//         "date": "ISO date string",
 //         "description": "string",
 //         "merchantName": "string",
 //         "category": "string"
 //       }
+//       If it's not a receipt, return an empty object.
 //     `;
 
 //     const result = await model.generateContent([
+//       {
+//         inlineData: {
+//           data: base64String,
+//           mimeType: file.type || "image/jpeg",
+//         },
+//       },
 //       prompt,
-//       { inlineData: { data: base64String, mimeType: file.type } },
 //     ]);
 
-//     const text = result.response.text().replace(/```(?:json)?\n?/g, "").trim();
-//     const parsed = JSON.parse(text);
+//     const text = result.response.text();
+//     const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
 
-//     return Response.json(parsed);
+//     const data = JSON.parse(cleanedText);
+
+//     return NextResponse.json({ success: true, data });
 //   } catch (error) {
-//     console.error("❌ Error in /api/scan-receipt:", error);
-//     return Response.json({ error: "Receipt scan failed" }, { status: 500 });
+//     console.error("❌ Error scanning receipt:", error);
+//     return NextResponse.json({ error: error.message }, { status: 500 });
 //   }
 // }
-

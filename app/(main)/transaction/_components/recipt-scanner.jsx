@@ -45,25 +45,25 @@ export function ReceiptScanner({ onScanComplete }) {
           if (file) handleReceiptScan(file);
         }}
       />
-      <Button
-        type="button"
-        variant="outline"
-        className="w-full h-10 bg-gradient-to-br from-orange-500 via-pink-500 to-purple-500 animate-gradient hover:opacity-90 transition-opacity text-white hover:text-white"
-        onClick={() => fileInputRef.current?.click()}
-        disabled={scanReceiptLoading}
-      >
-        {scanReceiptLoading ? (
-          <>
-            <Loader2 className="mr-2 animate-spin" />
-            <span>Scanning Receipt...</span>
-          </>
-        ) : (
-          <>
-            <Camera className="mr-2" />
-            <span>Scan Receipt with AI</span>
-          </>
-        )}
-      </Button>
+    <Button
+  type="button"
+  variant="outline"
+  className="w-full h-12 bg-gradient-to-br from-indigo-600 via-blue-600 to-sky-500 hover:from-indigo-700 hover:via-blue-700 hover:to-sky-600 transition-all duration-300 text-white hover:text-white shadow-lg hover:shadow-xl transform hover:scale-105"
+  onClick={() => fileInputRef.current?.click()}
+  disabled={scanReceiptLoading}
+>
+  {scanReceiptLoading ? (
+    <>
+      <Loader2 className="mr-3 h-5 w-5 animate-spin" />
+      <span className="font-semibold">Scanning Receipt...</span>
+    </>
+  ) : (
+    <>
+      <Camera className="mr-3 h-5 w-5 drop-shadow-md" />
+      <span className="font-semibold tracking-wide">Scan Receipt with AI</span>
+    </>
+  )}
+</Button>
     </div>
   );
 }
